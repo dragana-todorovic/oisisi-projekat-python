@@ -1,5 +1,5 @@
 from src.parser import Parser
-from src.data_structures.trie import Trie
+from src.data_structures.trie import Trie, TrieNode
 from src.file_walk import walk_recursively
 from src.data_structures.graph import Graph
 from src.data_structures.bfs import bfs_complete
@@ -22,7 +22,6 @@ def generate_trie():
     for file_path in files:
         try:
             links, words = p.parse(file_path)
-            print(words)
 
             u = g.insert_vertex({'path': file_path,
                                  'words': words,
@@ -45,7 +44,24 @@ def find_page_in_forest(path, forest):
         if page is not None and page["path"] == path:
             return k.element()
 
+def do_search(word):
+    result = t.search(word)
+    return result if result is not None else TrieNode()
+
 
 if __name__ == '__main__':
     generate_trie()
     forest = bfs_complete(g)
+    while True:
+        search_input = input("Search: ")
+        search_input = search_input.strip("\n")
+        search_input = search_input.strip(" ")
+        word_list = search_input.split(" ")
+        is_empty_search = len(word_list) == 1 and word_list[0] == ''
+        d = None
+        if is_empty_search:
+            print("Nije validan unos")
+            break
+        elif len(word_list) == 1:
+            search_result = do_search(word_list[0])
+            print(list(search_result.indexes.keys()))
