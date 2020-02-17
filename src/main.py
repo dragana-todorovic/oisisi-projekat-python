@@ -51,6 +51,26 @@ def do_search(word):
     result = t.search(word)
     return result if result is not None else TrieNode()
 
+def single_search(word):
+    dic = {}
+    for k, v in forest.items():
+        vertex = k
+        page = vertex.element()
+        grade = 0
+        reference_num = g.degree(vertex, False)
+        other_count = 0
+        if v is not None:
+            other_page = v.endpoints()[1].element()
+            other_node = other_page["trie"].search(word)
+            if other_node is not None:
+                other_count = other_node.counter
+        grade += 0.5 * reference_num
+        grade += 0.3 * other_count
+        node = page["trie"].search(word)
+        if node is not None:
+            grade += 0.2 * node.counter
+            dic[page["path"]] = [grade, node.counter]
+    return dic
 
 if __name__ == '__main__':
     generate_trie()
@@ -67,7 +87,7 @@ if __name__ == '__main__':
             break
         elif len(word_list) == 1:
             search_result = do_search(word_list[0])
-            d = single_search(word_list[0],forest)
+            d = single_search(word_list[0])
             print(d)
         else:
             has_operator = False
@@ -81,16 +101,16 @@ if __name__ == '__main__':
                         search_result2 = do_search(word_list[i + 1])
                         if search_result1 is not None and search_result2 is not None:
                             if word_list[i].upper() == 'AND':
-                                d = s.do_and(single_search(word_list[i - 1],forest), single_search(word_list[i + 1],forest))
-                                print(d.keys())
+                                d = s.do_and(single_search(word_list[i - 1]), single_search(word_list[i + 1]))
+                                print(d)
                                 break
                             elif word_list[i].upper() == 'OR':
-                                d = s.do_or(single_search(word_list[i - 1],forest), single_search(word_list[i + 1],forest))
-                                print(d.keys())
+                                d = s.do_or(single_search(word_list[i - 1]), single_search(word_list[i + 1]))
+                                print(d)
                                 break
                             elif word_list[i].upper() == 'NOT':
-                                d = s.do_not(single_search(word_list[i - 1],forest), single_search(word_list[i + 1],forest))
-                                print(d.keys())
+                                d = s.do_not(single_search(word_list[i - 1]), single_search(word_list[i + 1]))
+                                print(d)
                                 break
                 else:
                     print("Nije validan unos")
@@ -99,6 +119,6 @@ if __name__ == '__main__':
                     search_result1 = do_search(word_list[i])
                     search_result2 = do_search(word_list[i + 1])
                     if search_result1 is not None and search_result2 is not None:
-                        d.update(s.do_or(single_search(word_list[i - 1],forest), single_search(word_list[i + 1],forest)))
-                print(d.keys())
+                        d.update(s.do_or(single_search(word_list[i - 1]), single_search(word_list[i + 1])))
+                print(d)
 
