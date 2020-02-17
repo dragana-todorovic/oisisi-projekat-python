@@ -1,9 +1,10 @@
-from src.parser import Parser
+from src.data_structures.bfs import bfs_complete
+from src.data_structures.graph import Graph
+from src.data_structures.set import Set
 from src.data_structures.trie import Trie, TrieNode
 from src.file_walk import walk_recursively
-from src.data_structures.graph import Graph
-from src.data_structures.bfs import bfs_complete
-from src.data_structures.set import Set
+from src.parser import Parser
+from src.single_search import single_search
 
 g = Graph()
 p = Parser()
@@ -66,7 +67,8 @@ if __name__ == '__main__':
             break
         elif len(word_list) == 1:
             search_result = do_search(word_list[0])
-            print((search_result.indexes.keys()))
+            d = single_search(word_list[0],forest)
+            print(d)
         else:
             has_operator = False
             for operator in ["AND", "OR", "NOT", "and", "or", "not"]:
@@ -79,15 +81,15 @@ if __name__ == '__main__':
                         search_result2 = do_search(word_list[i + 1])
                         if search_result1 is not None and search_result2 is not None:
                             if word_list[i].upper() == 'AND':
-                                d = s.do_and(search_result1.indexes, search_result2.indexes)
+                                d = s.do_and(single_search(word_list[i - 1],forest), single_search(word_list[i + 1],forest))
                                 print(d.keys())
                                 break
                             elif word_list[i].upper() == 'OR':
-                                d = s.do_or(search_result1.indexes, search_result2.indexes)
+                                d = s.do_or(single_search(word_list[i - 1],forest), single_search(word_list[i + 1],forest))
                                 print(d.keys())
                                 break
                             elif word_list[i].upper() == 'NOT':
-                                d = s.do_not(do_search(word_list[i - 1]).indexes, do_search(word_list[i + 1]).indexes)
+                                d = s.do_not(single_search(word_list[i - 1],forest), single_search(word_list[i + 1],forest))
                                 print(d.keys())
                                 break
                 else:
@@ -96,6 +98,7 @@ if __name__ == '__main__':
                 for i in range(len(word_list) - 1):
                     search_result1 = do_search(word_list[i])
                     search_result2 = do_search(word_list[i + 1])
-                    d.update(s.do_or(search_result1.indexes, search_result2.indexes))
+                    if search_result1 is not None and search_result2 is not None:
+                        d.update(s.do_or(single_search(word_list[i - 1],forest), single_search(word_list[i + 1],forest)))
                 print(d.keys())
 
