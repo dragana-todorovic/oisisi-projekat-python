@@ -73,7 +73,25 @@ if __name__ == '__main__':
                 if operator in word_list:
                     has_operator = True
             if has_operator:
-                pass
+                for i in range(0, len(word_list)):
+                    if word_list[1].upper() in ["AND", "OR", "NOT"]:
+                        search_result1 = do_search(word_list[i - 1])
+                        search_result2 = do_search(word_list[i + 1])
+                        if search_result1 is not None and search_result2 is not None:
+                            if word_list[i].upper() == 'AND':
+                                d = s.do_and(search_result1.indexes, search_result2.indexes)
+                                print(d.keys())
+                                break
+                            elif word_list[i].upper() == 'OR':
+                                d = s.do_or(search_result1.indexes, search_result2.indexes)
+                                print(d.keys())
+                                break
+                            elif word_list[i].upper() == 'NOT':
+                                d = s.do_not(do_search(word_list[i - 1]).indexes, do_search(word_list[i + 1]).indexes)
+                                print(d.keys())
+                                break
+                else:
+                    print("Nije validan unos")
             else:
                 for i in range(len(word_list) - 1):
                     search_result1 = do_search(word_list[i])
