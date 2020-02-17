@@ -3,10 +3,12 @@ from src.data_structures.trie import Trie, TrieNode
 from src.file_walk import walk_recursively
 from src.data_structures.graph import Graph
 from src.data_structures.bfs import bfs_complete
+from src.data_structures.set import Set
 
 g = Graph()
 p = Parser()
 t = Trie()
+s = Set()
 
 
 def create_trie(words_in_file, path_to_file):
@@ -58,10 +60,24 @@ if __name__ == '__main__':
         search_input = search_input.strip(" ")
         word_list = search_input.split(" ")
         is_empty_search = len(word_list) == 1 and word_list[0] == ''
-        d = None
+        d = {}
         if is_empty_search:
             print("Nije validan unos")
             break
         elif len(word_list) == 1:
             search_result = do_search(word_list[0])
-            print(list(search_result.indexes.keys()))
+            print((search_result.indexes.keys()))
+        else:
+            has_operator = False
+            for operator in ["AND", "OR", "NOT", "and", "or", "not"]:
+                if operator in word_list:
+                    has_operator = True
+            if has_operator:
+                pass
+            else:
+                for i in range(len(word_list) - 1):
+                    search_result1 = do_search(word_list[i])
+                    search_result2 = do_search(word_list[i + 1])
+                    d.update(s.do_or(search_result1.indexes, search_result2.indexes))
+                print(d.keys())
+
