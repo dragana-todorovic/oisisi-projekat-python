@@ -47,9 +47,11 @@ def find_page_in_forest(path, forest):
         if page is not None and page["path"] == path:
             return k.element()
 
+
 def do_search(word):
     result = t.search(word)
     return result if result is not None else TrieNode()
+
 
 def single_search(word):
     dic = {}
@@ -72,6 +74,22 @@ def single_search(word):
             dic[page["path"]] = [grade, node.counter]
     return dic
 
+
+def order(x, y):
+    if x[1][0] > y[1][0]:
+        return x, y
+    else:
+        return y, x
+
+
+def sort_dict(mydict):
+    d_items = list(mydict.items())
+    for j in range(len(d_items) - 1):
+        for i in range(len(d_items) - 1):
+            d_items[i], d_items[i + 1] = order(d_items[i], d_items[i + 1])
+    return dict(d_items)
+
+
 if __name__ == '__main__':
     generate_trie()
     forest = bfs_complete(g)
@@ -88,7 +106,8 @@ if __name__ == '__main__':
         elif len(word_list) == 1:
             search_result = do_search(word_list[0])
             d = single_search(word_list[0])
-            print(d)
+            dic = sort_dict(d)
+            print(dic)
         else:
             has_operator = False
             for operator in ["AND", "OR", "NOT", "and", "or", "not"]:
@@ -102,15 +121,18 @@ if __name__ == '__main__':
                         if search_result1 is not None and search_result2 is not None:
                             if word_list[i].upper() == 'AND':
                                 d = s.do_and(single_search(word_list[i - 1]), single_search(word_list[i + 1]))
-                                print(d)
+                                dic = sort_dict(d)
+                                print(dic)
                                 break
                             elif word_list[i].upper() == 'OR':
                                 d = s.do_or(single_search(word_list[i - 1]), single_search(word_list[i + 1]))
-                                print(d)
+                                dic = sort_dict(d)
+                                print(dic)
                                 break
                             elif word_list[i].upper() == 'NOT':
                                 d = s.do_not(single_search(word_list[i - 1]), single_search(word_list[i + 1]))
-                                print(d)
+                                dic = sort_dict(d)
+                                print(dic)
                                 break
                 else:
                     print("Nije validan unos")
@@ -119,6 +141,7 @@ if __name__ == '__main__':
                     search_result1 = do_search(word_list[i])
                     search_result2 = do_search(word_list[i + 1])
                     if search_result1 is not None and search_result2 is not None:
-                        d.update(s.do_or(single_search(word_list[i - 1]), single_search(word_list[i + 1])))
-                print(d)
-
+                        d.update(s.do_or(single_search(word_list[i]), single_search(word_list[i + 1])))
+                        # d = s.do_or(single_search(word_list[i]), single_search(word_list[i + 1]))
+                        dic = sort_dict(d)
+                print(dic)
