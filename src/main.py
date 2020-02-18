@@ -10,6 +10,11 @@ g = Graph()
 p = Parser()
 t = Trie()
 s = Set()
+OKBLUE = '\033[94m'
+ENDC = '\033[0m'
+FAIL = '\033[91m'
+OKGREEN = '\033[92m'
+WARNING = '\033[93m'
 
 
 def create_trie(words_in_file, path_to_file):
@@ -21,6 +26,9 @@ def create_trie(words_in_file, path_to_file):
 
 def generate_trie():
     path = input("Unesi putanju:")
+    if path.__contains__(".html") :
+        print("Putanja nije odgovarajuca")
+        path = input("Unesi putanju: ")
     files = walk_recursively(path)
     for file_path in files:
         try:
@@ -90,6 +98,39 @@ def sort_dict(mydict):
     return dict(d_items)
 
 
+def paginaiton_print(sorted_dic):
+    try:
+        if not sorted_dic:
+            print("Nema rezultata.")
+            return
+        pagination_num = int(input("Koliko rezultata zelite da prikazete? "))
+        if pagination_num == 0:
+            print("Ne moze se prikazati 0 rezultata")
+            return
+        lista_printova = []
+        for key in sorted_dic:
+            path = key
+            range_ = sorted_dic[key][0]
+            count = sorted_dic[key][1]
+            print_string = " Putanja do html stranice koja sadrzi rijec(rijeci) je: " + OKBLUE + path + ENDC + "\n"
+            print_string += "Broj pojavljivanja rijeci u datoj stranici je: " + OKGREEN + str(count) + ENDC + "\n"
+            print_string += "Rang date stranice je: " + FAIL + str(range_) + ENDC + "\n--------------------------"
+            lista_printova.append(print_string)
+        index = 0
+        while index + pagination_num < len(lista_printova):
+            for index2 in range(index, index + pagination_num):
+                print(lista_printova[index2])
+            choice = input("Korak [next/prev]: ")
+            if choice.lower() == "next":
+                index += pagination_num
+            elif choice.lower() == "prev":
+                index -= pagination_num
+            else:
+                return
+    except ValueError:
+        print(" Morate unijeti broj !\n")
+
+
 if __name__ == '__main__':
     generate_trie()
     forest = bfs_complete(g)
@@ -107,7 +148,7 @@ if __name__ == '__main__':
             search_result = do_search(word_list[0])
             d = single_search(word_list[0])
             dic = sort_dict(d)
-            print(dic)
+            paginaiton_print(dic)
         else:
             has_operator = False
             for operator in ["AND", "OR", "NOT", "and", "or", "not"]:
@@ -122,17 +163,17 @@ if __name__ == '__main__':
                             if word_list[i].upper() == 'AND':
                                 d = s.do_and(single_search(word_list[i - 1]), single_search(word_list[i + 1]))
                                 dic = sort_dict(d)
-                                print(dic)
+                                paginaiton_print(dic)
                                 break
                             elif word_list[i].upper() == 'OR':
                                 d = s.do_or(single_search(word_list[i - 1]), single_search(word_list[i + 1]))
                                 dic = sort_dict(d)
-                                print(dic)
+                                paginaiton_print(dic)
                                 break
                             elif word_list[i].upper() == 'NOT':
                                 d = s.do_not(single_search(word_list[i - 1]), single_search(word_list[i + 1]))
                                 dic = sort_dict(d)
-                                print(dic)
+                                paginaiton_print(dic)
                                 break
                 else:
                     print("Nije validan unos")
@@ -146,4 +187,4 @@ if __name__ == '__main__':
                     if d is not None and search_result2 is not None:
                         d.update(s.do_or(d, search_result2))
                         d = sort_dict(d)
-                print(d)
+                paginaiton_print(d)
