@@ -137,11 +137,13 @@ if __name__ == '__main__':
                 else:
                     print("Nije validan unos")
             else:
-                for i in range(len(word_list) - 1):
-                    search_result1 = do_search(word_list[i])
-                    search_result2 = do_search(word_list[i + 1])
-                    if search_result1 is not None and search_result2 is not None:
-                        d.update(s.do_or(single_search(word_list[i]), single_search(word_list[i + 1])))
-                        # d = s.do_or(single_search(word_list[i]), single_search(word_list[i + 1]))
-                        dic = sort_dict(d)
-                print(dic)
+                d = None
+                for i in range(0, len(word_list) - 1):
+                    first_time = i == 0
+                    if first_time:
+                        d = single_search(word_list[i])
+                    search_result2 = single_search(word_list[i + 1])
+                    if d is not None and search_result2 is not None:
+                        d.update(s.do_or(d, search_result2))
+                        d = sort_dict(d)
+                print(d)
