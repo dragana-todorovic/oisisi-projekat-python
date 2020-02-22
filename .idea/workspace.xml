@@ -27,7 +27,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Project-Python-master" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager" selected="Python.main">
@@ -111,6 +111,7 @@
       <workItem from="1581957430653" duration="1250000" />
       <workItem from="1582033036837" duration="184000" />
       <workItem from="1582033256857" duration="1451000" />
+      <workItem from="1582381136210" duration="932000" />
     </task>
     <servers />
   </component>
@@ -135,26 +136,26 @@
     </state>
     <state x="462" y="107" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1581945928008" />
     <state x="519" y="121" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1582034793148" />
-    <state width="1493" height="208" key="GridCell.Tab.0.bottom" timestamp="1582034368332">
+    <state width="1186" height="236" key="GridCell.Tab.0.bottom" timestamp="1582381736617">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1323" height="152" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1581957193304" />
-    <state width="1493" height="208" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1582034368332" />
-    <state width="1493" height="208" key="GridCell.Tab.0.center" timestamp="1582034368332">
+    <state width="1186" height="236" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1582381736617" />
+    <state width="1186" height="236" key="GridCell.Tab.0.center" timestamp="1582381736617">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1323" height="152" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1581957193304" />
-    <state width="1493" height="208" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1582034368332" />
-    <state width="1493" height="208" key="GridCell.Tab.0.left" timestamp="1582034368332">
+    <state width="1186" height="236" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1582381736617" />
+    <state width="1186" height="236" key="GridCell.Tab.0.left" timestamp="1582381736616">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1323" height="152" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1581957193304" />
-    <state width="1493" height="208" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1582034368332" />
-    <state width="1493" height="208" key="GridCell.Tab.0.right" timestamp="1582034368332">
+    <state width="1186" height="236" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1582381736616" />
+    <state width="1186" height="236" key="GridCell.Tab.0.right" timestamp="1582381736617">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1323" height="152" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1581957193304" />
-    <state width="1493" height="208" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1582034368332" />
+    <state width="1186" height="236" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1582381736617" />
     <state width="1323" height="223" key="GridCell.Tab.1.bottom" timestamp="1581952414254">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -187,6 +188,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/oisisi_projekat_python$primeri_graf__1_.coverage" NAME="primeri_graf (1) Coverage Results" MODIFIED="1580216455761" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Downloads" />
-    <SUITE FILE_PATH="coverage/oisisi_projekat_python$main.coverage" NAME="main Coverage Results" MODIFIED="1582034368312" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/oisisi_projekat_python$main.coverage" NAME="main Coverage Results" MODIFIED="1582381736599" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>

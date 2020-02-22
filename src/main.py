@@ -66,20 +66,22 @@ def single_search(word):
     for k, v in forest.items():
         vertex = k
         page = vertex.element()
-        grade = 0
-        reference_num = g.degree(vertex, False)
-        other_count = 0
-        if v is not None:
-            other_page = v.endpoints()[1].element()
-            other_node = other_page["trie"].search(word)
-            if other_node is not None:
-                other_count = other_node.counter
-        grade += 0.5 * reference_num
-        grade += 0.3 * other_count
-        node = page["trie"].search(word)
-        if node is not None:
-            grade += 0.2 * node.counter
-            dic[page["path"]] = [grade, node.counter]
+
+        if page["path"] in do_search(word).indexes.keys():
+            grade = 0
+            reference_num = g.degree(vertex, False)
+            other_count = 0
+            if v is not None:
+                other_page = v.endpoints()[1].element()
+                other_node = other_page["trie"].search(word)
+                if other_node is not None:
+                    other_count = other_node.counter
+            grade += 0.5 * reference_num
+            grade += 0.3 * other_count
+            node = page["trie"].search(word)
+            if node is not None:
+                grade += 0.2 * node.counter
+                dic[page["path"]] = [grade, node.counter]
     return dic
 
 
@@ -104,8 +106,8 @@ def paginaiton_print(sorted_dic):
             print("Nema rezultata.")
             return
         pagination_num = int(input("Koliko rezultata zelite da prikazete? "))
-        if pagination_num == 0:
-            print("Ne moze se prikazati 0 rezultata")
+        if pagination_num <= 0:
+            print("Ne moze se prikazati 0 ili negatvan broj rezultata")
             return
         lista_printova = []
         for key in sorted_dic:
@@ -127,8 +129,12 @@ def paginaiton_print(sorted_dic):
                 index -= pagination_num
             else:
                 return
+        for ind in range(index, len(lista_printova)):
+            print(lista_printova[ind])
     except ValueError:
         print(" Morate unijeti broj !\n")
+
+
 
 
 if __name__ == '__main__':

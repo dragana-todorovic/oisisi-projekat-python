@@ -39,7 +39,7 @@ class Graph:
         def __str__(self):
             return '({0},{1},{2})'.format(self._origin, self._destination, self._element)
 
-    def __init__(self, directed=False):
+    def __init__(self, directed=True):
         self._outgoing = {}
         self._incoming = {} if directed else self._outgoing
 
