@@ -4,7 +4,6 @@ from src.data_structures.set import Set
 from src.data_structures.trie import Trie, TrieNode
 from src.file_walk import walk_recursively
 from src.parser import Parser
-from src.single_search import single_search
 
 g = Graph()
 p = Parser()
@@ -30,6 +29,9 @@ def generate_trie():
         print("Putanja nije odgovarajuca")
         path = input("Unesi putanju: ")
     files = walk_recursively(path)
+    if not files:
+        print('Nema html dokumenata u direktorijumu')
+        return
     inserted = []
     for file_path in files:
         try:
