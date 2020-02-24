@@ -58,6 +58,11 @@ class Graph:
     def vertices(self):
         return self._outgoing.keys()
 
+    def get_vertex(self, key):
+        for vertex in self._outgoing.keys():
+            if vertex.element()["path"] == key:
+                return vertex
+
     def edge_count(self):
         total = sum(len(self._outgoing[v]) for v in self._outgoing)
         return total if self.is_directed() else total // 2

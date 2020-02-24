@@ -26,10 +26,11 @@ def create_trie(words_in_file, path_to_file):
 
 def generate_trie():
     path = input("Unesi putanju:")
-    if path.__contains__(".html") :
+    if path.__contains__(".html"):
         print("Putanja nije odgovarajuca")
         path = input("Unesi putanju: ")
     files = walk_recursively(path)
+    inserted = []
     for file_path in files:
         try:
             links, words = p.parse(file_path)
@@ -41,9 +42,11 @@ def generate_trie():
                 t.insert(words[index], file_path, index)
 
             for link in links:
-                v = g.insert_vertex({'path': link,
-                                     'words': words,
-                                     'trie': create_trie(words, link)})
+                v = g.get_vertex(link)
+                if v is None:
+                    v = g.insert_vertex({'path': link,
+                                         'words': words,
+                                         'trie': create_trie(words, link)})
                 g.insert_edge(u, v)
         except Exception as e:
             print(f"Parsing error ${e}.")
@@ -82,22 +85,47 @@ def single_search(word):
             if node is not None:
                 grade += 0.2 * node.counter
                 dic[page["path"]] = [grade, node.counter]
+
     return dic
 
 
-def order(x, y):
-    if x[1][0] > y[1][0]:
-        return x, y
-    else:
-        return y, x
+def sort_dict(dictionary):
+    items = list(dictionary.items())
+    merge_sort(items)
+    return dict(items)
 
 
-def sort_dict(mydict):
-    d_items = list(mydict.items())
-    for j in range(len(d_items) - 1):
-        for i in range(len(d_items) - 1):
-            d_items[i], d_items[i + 1] = order(d_items[i], d_items[i + 1])
-    return dict(d_items)
+def merge_sort(dic_items):
+
+    if len(dic_items) > 1:
+        mid = len(dic_items) // 2
+        left = dic_items[0:mid]
+
+        right = dic_items[mid:len(dic_items)]
+        merge_sort(left)
+        merge_sort(right)
+
+        m = 0
+        j = 0
+        k = 0
+        while m < len(left) and j < len(right):
+            if left[m][1][0] > right[j][1][0]:
+                dic_items[k] = left[m]
+                m = m + 1
+            else:
+                dic_items[k] = right[j]
+                j = j + 1
+            k = k + 1
+
+        while m < len(left):
+            dic_items[k] = left[m]
+            m = m + 1
+            k = k + 1
+
+        while j < len(right):
+            dic_items[k] = right[j]
+            j = j + 1
+            k = k + 1
 
 
 def paginaiton_print(sorted_dic):
@@ -126,7 +154,10 @@ def paginaiton_print(sorted_dic):
             if choice.lower() == "next":
                 index += pagination_num
             elif choice.lower() == "prev":
-                index -= pagination_num
+                if index - pagination_num < 0:
+                    print("Prvo next pa prev")
+                else:
+                    index -= pagination_num
             else:
                 return
         for ind in range(index, len(lista_printova)):
@@ -135,11 +166,10 @@ def paginaiton_print(sorted_dic):
         print(" Morate unijeti broj !\n")
 
 
-
-
 if __name__ == '__main__':
     generate_trie()
     forest = bfs_complete(g)
+
     while True:
         search_input = input("Search: ")
         search_input = search_input.strip("\n")
