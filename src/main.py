@@ -25,13 +25,16 @@ def create_trie(words_in_file, path_to_file):
 
 def generate_trie():
     path = input("Unesi putanju:")
+    if  path == '':
+        print('Nije validan unos')
+        exit(0)
     if path.__contains__(".html"):
         print("Putanja nije odgovarajuca")
         path = input("Unesi putanju: ")
     files = walk_recursively(path)
     if not files:
         print('Nema html dokumenata u direktorijumu')
-        return
+        exit(0)
     inserted = []
     for file_path in files:
         try:
