@@ -5,7 +5,7 @@ from src.data_structures.trie import Trie, TrieNode
 from src.file_walk import walk_recursively
 from src.parser import Parser
 
-g = Graph()
+g = Graph(directed=True)
 p = Parser()
 t = Trie()
 s = Set()
@@ -166,6 +166,7 @@ def paginaiton_print(sorted_dic):
             print(lista_printova[ind])
     except ValueError:
         print(" Morate unijeti broj !\n")
+
 
 
 if __name__ == '__main__':
